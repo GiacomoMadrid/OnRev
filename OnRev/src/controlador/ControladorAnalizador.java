@@ -22,9 +22,9 @@ public class ControladorAnalizador {
     public Analizador analizador;
     public Pseudocodigo pseudo;
             
-    public ControladorAnalizador(frmAnalizador vista, ControladorPrincipal contPrincipal){
+    public ControladorAnalizador(frmAnalizador vista, ControladorPrincipal cont){
         this.vista = vista;
-        this.contPrincipal = contPrincipal;
+        this.contPrincipal = cont;
         
         this.vista.btnRegresar.setBackground(Color.white);
         this.vista.btnLimpiar.setBackground(Color.white);

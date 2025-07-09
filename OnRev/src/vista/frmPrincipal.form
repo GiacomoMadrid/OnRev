@@ -48,6 +48,7 @@
           <Group type="103" groupAlignment="0" attributes="0">
               <Group type="102" alignment="0" attributes="0">
                   <Component id="panDescripcion" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="panBotones" max="32767" attributes="0"/>
                   <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                   <Component id="panGitHub" min="-2" max="-2" attributes="0"/>
@@ -211,7 +212,7 @@
                   <Color blue="99" green="0" red="33" type="rgb"/>
                 </Property>
                 <Property name="horizontalAlignment" type="int" value="0"/>
-                <Property name="text" type="java.lang.String" value="https://github.com/Vilberto02/OnRev"/>
+                <Property name="text" type="java.lang.String" value="https://github.com/GiacomoMadrid/OnRev"/>
               </Properties>
             </Component>
           </SubComponents>

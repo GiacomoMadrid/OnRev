@@ -114,7 +114,7 @@ public class frmPrincipal extends javax.swing.JFrame {
         lblGitHub.setFont(new java.awt.Font("Segoe UI", 3, 14)); // NOI18N
         lblGitHub.setForeground(new java.awt.Color(51, 0, 153));
         lblGitHub.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblGitHub.setText("https://github.com/Vilberto02/OnRev");
+        lblGitHub.setText("https://github.com/GiacomoMadrid/OnRev");
 
         javax.swing.GroupLayout panGitHubLayout = new javax.swing.GroupLayout(panGitHub);
         panGitHub.setLayout(panGitHubLayout);
@@ -142,6 +142,7 @@ public class frmPrincipal extends javax.swing.JFrame {
             panFondoLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(panFondoLayout.createSequentialGroup()
                 .addComponent(panDescripcion, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(0, 0, 0)
                 .addComponent(panBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0)
                 .addComponent(panGitHub, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
