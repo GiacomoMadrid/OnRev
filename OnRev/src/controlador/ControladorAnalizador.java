@@ -1,0 +1,95 @@
+/*
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
+ * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
+ */
+package controlador;
+
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import modelo.Analizador;
+import modelo.Pseudocodigo;
+import vista.frmAnalizador;
+
+/**
+ *
+ * @author Giacomo
+ */
+public class ControladorAnalizador {
+    protected frmAnalizador vista;    
+    private ControladorPrincipal contPrincipal;
+    public Analizador analizador;
+    public Pseudocodigo pseudo;
+            
+    public ControladorAnalizador(frmAnalizador vista, ControladorPrincipal contPrincipal){
+        this.vista = vista;
+        this.contPrincipal = contPrincipal;
+        
+        this.vista.btnRegresar.setBackground(Color.white);
+        this.vista.btnLimpiar.setBackground(Color.white);
+        
+        
+        //******************** Barra de programa ***************************************
+        
+        this.vista.btnRegresar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                contPrincipal.iniciar();
+                vista.dispose();
+            }
+        });
+        
+        this.vista.btnExportar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                // Convertir a pdf
+            }
+        });
+        
+        //************************** Botones ********************************** 
+        
+        this.vista.btnLimpiar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                limpiarComponentes();
+            }
+        });
+        
+        this.vista.btnVerificar.addActionListener(new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent e){
+                limpiarLabels();
+                analizarPseudocodigo();
+            }
+            
+        });
+        
+        
+        
+        
+    }
+    
+    
+    
+    public void iniciar(){
+        this.vista.setLocationRelativeTo(null);
+        this.vista.setVisible(true);
+        limpiarComponentes();
+    }
+    
+    public void limpiarComponentes(){
+        this.vista.txtPseudocodigo.setText("");
+        limpiarLabels();
+    }
+    
+    public void limpiarLabels(){
+        this.vista.lblComplejidad.setText(" ");
+        this.vista.lblTiempo.setText(" ");
+    }
+    
+    private void analizarPseudocodigo() {
+    
+    }
+    
+}
