@@ -57,7 +57,7 @@ public class frmComparador extends javax.swing.JFrame {
         panFuncion = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         lblTiempo = new javax.swing.JLabel();
-        lblTiempo1 = new javax.swing.JLabel();
+        lblTiempoNuevo = new javax.swing.JLabel();
         panGraficaTiempo = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -329,9 +329,9 @@ public class frmComparador extends javax.swing.JFrame {
         lblTiempo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         lblTiempo.setText("f(t)");
 
-        lblTiempo1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        lblTiempo1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        lblTiempo1.setText("f(t)");
+        lblTiempoNuevo.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        lblTiempoNuevo.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        lblTiempoNuevo.setText("f(t)");
 
         javax.swing.GroupLayout panFuncionLayout = new javax.swing.GroupLayout(panFuncion);
         panFuncion.setLayout(panFuncionLayout);
@@ -341,7 +341,7 @@ public class frmComparador extends javax.swing.JFrame {
             .addComponent(lblTiempo, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panFuncionLayout.createSequentialGroup()
                 .addGap(0, 0, 0)
-                .addComponent(lblTiempo1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(lblTiempoNuevo, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         panFuncionLayout.setVerticalGroup(
@@ -352,7 +352,7 @@ public class frmComparador extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(lblTiempo)
                 .addGap(4, 4, 4)
-                .addComponent(lblTiempo1)
+                .addComponent(lblTiempoNuevo)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
@@ -546,7 +546,7 @@ public class frmComparador extends javax.swing.JFrame {
     public javax.swing.JLabel lblComplejidadNuevo;
     public javax.swing.JLabel lblIcono;
     public javax.swing.JLabel lblTiempo;
-    public javax.swing.JLabel lblTiempo1;
+    public javax.swing.JLabel lblTiempoNuevo;
     public javax.swing.JLabel lblTitulo;
     private javax.swing.JPanel panBotones;
     private javax.swing.JPanel panComplejidad;

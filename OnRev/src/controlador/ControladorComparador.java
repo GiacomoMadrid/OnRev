@@ -12,6 +12,7 @@ import modelo.AlgoritmoPredefinido;
 import modelo.Analizador;
 import modelo.FuncionTiempo;
 import modelo.Graficador;
+import modelo.Polinomio;
 import modelo.Pseudocodigo;
 import vista.frmComparador;
 
@@ -67,11 +68,59 @@ public class ControladorComparador {
             @Override
             public void actionPerformed(ActionEvent e){
                 analizarPseudocodigo();
-                analizador = new Analizador(algo);
+                try{
+                Polinomio p = parsePolinomio("2n^2−2n"); 
+                vista.lblComplejidad.setText("O(n)");
+                vista.lblTiempo.setText("2n^2-2n");
+                Graficador graficador = new Graficador();
+                graficador.setEscala(15); // Ajustar zoom
+                graficador.dibujar(vista.panGraficaTiempo, p);
+                }catch(Exception ex){
+                }
             }
         });
     }
     
+    public static Polinomio parsePolinomio(String str) {
+    Polinomio polinomio = new Polinomio();
+
+    // Normaliza el string para asegurar signos explícitos
+    str = str.replaceAll("-", "+-"); // "2n^2+-2n"
+    str = str.replaceAll("\\s+", ""); // Elimina espacios
+    if (str.startsWith("+")) str = str.substring(1); // Quita el "+" inicial
+
+    // Divide los términos
+    String[] terminos = str.split("\\+");
+
+    for (String termino : terminos) {
+        if (termino.isEmpty()) continue;
+
+        int coef = 0, exp = 0;
+
+        if (termino.contains("n")) {
+            String[] partes = termino.split("n");
+            // Coeficiente
+            if (partes[0].equals("") || partes[0].equals("+")) coef = 1;
+            else if (partes[0].equals("-")) coef = -1;
+            else coef = Integer.parseInt(partes[0]);
+
+            // Exponente
+            if (termino.contains("^")) {
+                exp = Integer.parseInt(termino.split("\\^")[1]);
+            } else {
+                exp = 1;
+            }
+        } else {
+            // Término constante
+            coef = Integer.parseInt(termino);
+            exp = 0;
+        }
+
+        polinomio.addTerm(coef, exp);
+    }
+
+    return polinomio;
+}
     
     
     public void iniciar(){
@@ -104,8 +153,8 @@ public class ControladorComparador {
         funcionTiempo = new FuncionTiempo(pseudo);
         String ft = funcionTiempo.calcular();
 
-        vista.lblComplejidad.setText(complejidad);
-        vista.lblTiempo.setText(ft);
+        vista.lblComplejidadNuevo.setText(complejidad);
+        vista.lblTiempoNuevo.setText(ft);
         
         Graficador graficador = new Graficador();
         graficador.setEscala(15); // Ajustar zoom
