@@ -5,6 +5,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import modelo.Analizador;
+import modelo.FuncionTiempo;
 import modelo.Pseudocodigo;
 import vista.frmAnalizador;
 
@@ -17,6 +18,7 @@ public class ControladorAnalizador {
     private ControladorPrincipal contPrincipal;
     public Analizador analizador;
     public Pseudocodigo pseudo;
+    public FuncionTiempo funcionTiempo;
             
     public ControladorAnalizador(frmAnalizador vista, ControladorPrincipal cont){
         this.vista = vista;
@@ -91,10 +93,12 @@ public class ControladorAnalizador {
 
         analizador = new Analizador(pseudo);
         String complejidad = analizador.calcularComplejidad();
-        String funcionTiempo = "T(n)";
+        //String funcionTiempo = "T(n)";
+        funcionTiempo = new FuncionTiempo(pseudo);
+        String ft = funcionTiempo.calcular();
 
         vista.lblComplejidad.setText(complejidad);
-        vista.lblTiempo.setText(funcionTiempo);
+        vista.lblTiempo.setText(ft);
         
     }
     
