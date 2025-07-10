@@ -50,13 +50,15 @@ public class EstructuraControl {
             return "MIENTRAS";
         }
         
+        if (linea.trim().startsWith("Sino")) {
+            return "SINO";
+        }
+        
         if (linea.trim().startsWith("Si")) {
             return "SI";
         }
         
-        if (linea.trim().startsWith("Sino")) {
-            return "SINO";
-        }
+        
         return "OTRO";
     }
 

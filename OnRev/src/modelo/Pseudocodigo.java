@@ -130,6 +130,8 @@ public class Pseudocodigo {
                     ec.setCuerpo(cuerpoActual.toString());
                     cuerpoActual.setLength(0);
                     enSino = true;
+                    nivel--;
+                    
                 }
                 
             }else if (linea.startsWith("f")) {

@@ -37,7 +37,8 @@ public class Analizador {
         int indiceN = 0;
         String variablePrincipal = "n";
         boolean tieneBucles = false;
-
+        int contSino = 0;
+        
         // Calcular máxima profundidad de anidamiento
         for (EstructuraControl ec : estructuras) {
             if (ec.getNivelAnidamiento() > maxAnidamiento) {
@@ -53,15 +54,16 @@ public class Analizador {
                     indiceN++;
                 
                 }
-            }            
+            }     
             
             if("SINO".equals(ec.getTipo())){
-                System.out.println("sino detected");
-                indiceN--;
+                System.out.println("Sino detected");
+                contSino++;
             }
-            
+                        
         }
-
+        
+        int value = 0;
         // Determinar complejidad
         if (!tieneBucles) {
             complejidadAsintotica = "O(1)";
@@ -69,13 +71,16 @@ public class Analizador {
         } else if (maxAnidamiento <= 1 && indiceN == 0) {
             complejidadAsintotica = "O(" + variablePrincipal + ")"; // O(n)
             
-        } else if ((maxAnidamiento >= 1 || indiceN >= 1)){ // O(n^2); O(n^3)...        
-            complejidadAsintotica = "O(" + variablePrincipal + "^" + (maxAnidamiento+indiceN) +")";
+        } else if ((maxAnidamiento >= 1 || indiceN >= 1)){ // O(n^2); O(n^3)...     
+            value = (maxAnidamiento+indiceN);            
+            complejidadAsintotica = "O(" + variablePrincipal + "^" + value +")";
             
             if((maxAnidamiento + indiceN) == 1){
                 complejidadAsintotica = "O(" + variablePrincipal + ")"; // O(n)
             }                    
         }
+        
+        
         
         System.out.println("Indice: "+ indiceN);
         System.out.println("--------------------------------");
