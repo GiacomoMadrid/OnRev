@@ -91,7 +91,7 @@ public class ControladorAnalizador {
 
         analizador = new Analizador(pseudo);
         String complejidad = analizador.calcularComplejidad();
-        String funcionTiempo = analizador.generarFuncionTiempo();
+        String funcionTiempo = "T(n)";
 
         vista.lblComplejidad.setText(complejidad);
         vista.lblTiempo.setText(funcionTiempo);
