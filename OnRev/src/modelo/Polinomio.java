@@ -54,5 +54,16 @@ public class Polinomio {
         }
         return sb.toString();
     }
+    
+    public double evaluar(double n) {
+        double resultado = 0;
+        for (Map.Entry<Integer, Integer> termino : terminos.entrySet()) {
+            int exponente = termino.getKey();
+            int coeficiente = termino.getValue();
+            resultado += coeficiente * Math.pow(n, exponente);
+        }
+        return resultado;
+    }
+    
 }
 

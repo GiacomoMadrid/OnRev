@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
 import modelo.Analizador;
 import modelo.FuncionTiempo;
+import modelo.Graficador;
 import modelo.Pseudocodigo;
 import vista.frmAnalizador;
 
@@ -59,6 +60,7 @@ public class ControladorAnalizador {
             public void actionPerformed(ActionEvent e){
                 limpiarLabels();
                 analizarPseudocodigo();
+                
             }
             
         });         
@@ -82,7 +84,7 @@ public class ControladorAnalizador {
         this.vista.lblTiempo.setText(" ");
     }
     
-     private void analizarPseudocodigo() {
+    private void analizarPseudocodigo() {
         String codigo = vista.txtPseudocodigo.getText();
         pseudo = new Pseudocodigo(codigo);
         
@@ -93,13 +95,15 @@ public class ControladorAnalizador {
 
         analizador = new Analizador(pseudo);
         String complejidad = analizador.calcularComplejidad();
-        //String funcionTiempo = "T(n)";
         funcionTiempo = new FuncionTiempo(pseudo);
         String ft = funcionTiempo.calcular();
 
         vista.lblComplejidad.setText(complejidad);
         vista.lblTiempo.setText(ft);
         
+        Graficador graficador = new Graficador();
+        graficador.setEscala(15); // Ajustar zoom
+        graficador.dibujar(vista.panCuerpoGrafica, funcionTiempo);
     }
     
 }

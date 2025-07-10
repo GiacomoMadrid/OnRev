@@ -9,7 +9,8 @@ import java.util.stream.Collectors;
  */
 public class FuncionTiempo {
     private final Pseudocodigo pseudo;
-
+    private Polinomio total;
+    
     public FuncionTiempo(Pseudocodigo pseudo) {
         this.pseudo = pseudo;
     }
@@ -19,7 +20,7 @@ public class FuncionTiempo {
         if (!pseudo.esValido())
             throw new IllegalStateException("Pseudocódigo inválido");
 
-        Polinomio total = analizarBloque(pseudo.getEstructuras(), 0);
+        total = analizarBloque(pseudo.getEstructuras(), 0);
         return "T(n) = " + total.toString();
     }
 
@@ -69,4 +70,15 @@ public class FuncionTiempo {
         }
         return suma;
     }
+
+    
+    public Pseudocodigo getPseudo() {
+        return pseudo;
+    }
+    
+    public Polinomio getPolinomio(){
+        return total;
+    }
+    
+    
 }
