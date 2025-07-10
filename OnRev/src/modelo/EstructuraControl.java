@@ -15,6 +15,7 @@ public class EstructuraControl {
     private String tipo;
     private String condicion;
     private String variableControl;
+    private String variableFin = "_";
     private int inicio;
     private int fin;
     private int nivelAnidamiento;
@@ -98,8 +99,9 @@ public class EstructuraControl {
     public int calcularIteraciones() {
         if ("PARA".equals(tipo)) {
             if (fin == -1) {
+                variableFin = ""+fin;
                 return 1;
-            } // Variable, valor estimado
+            }
             
             return fin - inicio + 1;
         }
@@ -107,7 +109,9 @@ public class EstructuraControl {
     }
     
     public int complejidadCondicion() {
-        if (condicion == null) return 1;
+        if (condicion == null) {
+            return 1;
+        }
         return condicion.split("&&|\\|\\|").length;
     }
     
@@ -141,6 +145,10 @@ public class EstructuraControl {
     
     public String getCuerpo() { 
         return cuerpo; 
+    }
+    
+    public String getVariableFin(){
+        return variableFin;
     }
 
 }

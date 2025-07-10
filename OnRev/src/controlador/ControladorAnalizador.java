@@ -88,8 +88,22 @@ public class ControladorAnalizador {
         this.vista.lblTiempo.setText(" ");
     }
     
-    private void analizarPseudocodigo() {
-    
+     private void analizarPseudocodigo() {
+        String codigo = vista.txtPseudocodigo.getText();
+        pseudo = new Pseudocodigo(codigo);
+        
+        if (!pseudo.esValido()) {
+            JOptionPane.showMessageDialog(null, "Error de sintaxis en el pseudocódigo");
+            return;
+        }
+
+        analizador = new Analizador(pseudo);
+        String complejidad = analizador.calcularComplejidad();
+        String funcionTiempo = analizador.generarFuncionTiempo();
+
+        vista.lblComplejidad.setText(complejidad);
+        vista.lblTiempo.setText(funcionTiempo);
+        
     }
     
 }
