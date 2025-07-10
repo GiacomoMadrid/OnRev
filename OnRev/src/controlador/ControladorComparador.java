@@ -7,6 +7,12 @@ package controlador;
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import modelo.AlgoritmoPredefinido;
+import modelo.Analizador;
+import modelo.FuncionTiempo;
+import modelo.Graficador;
+import modelo.Pseudocodigo;
 import vista.frmComparador;
 
 /**
@@ -16,7 +22,10 @@ import vista.frmComparador;
 public class ControladorComparador {
     protected frmComparador vista;    
     private ControladorPrincipal contPrincipal;
-    
+    public Analizador analizador;
+    public Pseudocodigo pseudo;
+    public AlgoritmoPredefinido algo;
+    public FuncionTiempo funcionTiempo;   
     
     
     
@@ -57,7 +66,8 @@ public class ControladorComparador {
         this.vista.btnComparar.addActionListener(new ActionListener(){
             @Override
             public void actionPerformed(ActionEvent e){
-               
+                analizarPseudocodigo();
+                analizador = new Analizador(algo);
             }
         });
     }
@@ -79,4 +89,29 @@ public class ControladorComparador {
         this.vista.lblComplejidad.setText(" ");
         this.vista.lblTiempo.setText(" ");
     }
+
+    private void analizarPseudocodigo() {
+        String codigo = vista.txtPseudocodigo.getText();
+        pseudo = new Pseudocodigo(codigo);
+        
+        if (!pseudo.esValido()) {
+            JOptionPane.showMessageDialog(null, "Error de sintaxis en el pseudocódigo");
+            return;
+        }
+
+        analizador = new Analizador(pseudo);
+        String complejidad = analizador.calcularComplejidad();
+        funcionTiempo = new FuncionTiempo(pseudo);
+        String ft = funcionTiempo.calcular();
+
+        vista.lblComplejidad.setText(complejidad);
+        vista.lblTiempo.setText(ft);
+        
+        Graficador graficador = new Graficador();
+        graficador.setEscala(15); // Ajustar zoom
+        graficador.dibujar(vista.panGraficaTiempo, funcionTiempo);
+    }
+
 }
+
+

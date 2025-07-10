@@ -163,7 +163,12 @@ public class frmComparador extends javax.swing.JFrame {
         txtPseudocodigo.setTabSize(2);
         jScrollPane1.setViewportView(txtPseudocodigo);
 
-        cboxAlgoritmosPredefinidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Quick Sort", "Bubble Sort" }));
+        cboxAlgoritmosPredefinidos.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Bubble Sort" }));
+        cboxAlgoritmosPredefinidos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cboxAlgoritmosPredefinidosActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout panCuerpoPseudoLayout = new javax.swing.GroupLayout(panCuerpoPseudo);
         panCuerpoPseudo.setLayout(panCuerpoPseudoLayout);
@@ -469,6 +474,10 @@ public class frmComparador extends javax.swing.JFrame {
     private void btnRegresarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnRegresarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_btnRegresarActionPerformed
+
+    private void cboxAlgoritmosPredefinidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cboxAlgoritmosPredefinidosActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cboxAlgoritmosPredefinidosActionPerformed
 
     /**
      * @param args the command line arguments
