@@ -28,14 +28,14 @@ public class Pseudocodigo {
     );
     
     private static final Pattern PATRON_SINO = Pattern.compile(
-        "^\\s*Sino\\s*(//.*)?$"
+        "^\\s*Sino\\s*$", Pattern.CASE_INSENSITIVE
     );
 
     public Pseudocodigo(String texto) {
         this.contenido = texto;
         this.valido = validarSintaxis();
         
-        if(valido){
+        if (valido) {
             extraerEstructuras();
         }
     }
@@ -45,66 +45,49 @@ public class Pseudocodigo {
         String[] lineas = contenido.split("\\r?\\n");
         if (lineas.length < 2) return false;
 
-        // 1) Verificar 'inicio' y 'fin'
-        if (!PATRON_INICIO.matcher(lineas[0].trim()).matches() ||
+        // Validar inicio y fin
+        if (!PATRON_INICIO.matcher(lineas[0].trim()).matches() || 
             !PATRON_FIN.matcher(lineas[lineas.length - 1].trim()).matches()) {
             return false;
         }
 
-        Stack<String> pila = new Stack<>();
+        Stack<String> pilaEstructuras = new Stack<>();
         for (int i = 1; i < lineas.length - 1; i++) {
             String linea = lineas[i].trim();
-            if (linea.isEmpty()) continue;
-
-            // Extraer solo la primera palabra clave
-            String clave = linea.split("\\s+")[0];
-
-            if (clave.equalsIgnoreCase("Si")) {
-                pila.push("SI");
-
-            } else if (clave.equalsIgnoreCase("Para")) {
-                pila.push("PARA");
-
-            } else if (clave.equalsIgnoreCase("Mientras")) {
-                pila.push("MIENTRAS");
-
-            } else if (clave.equalsIgnoreCase("Sino")) {
-                // 1) Sintaxis exacta
-                if (!PATRON_SINO.matcher(linea).matches()) {
+            
+            if (linea.startsWith("Si")) {
+                pilaEstructuras.push("SI");
+            } 
+            else if (PATRON_SINO.matcher(linea).matches()) {
+                if (pilaEstructuras.isEmpty() || !"SI".equals(pilaEstructuras.peek())) 
                     return false;
-                }
-                // 2) Debe haber un SI abierto
-                if (pila.isEmpty() || !"SI".equals(pila.peek())) {
+            }
+            else if (linea.startsWith("Para")) {
+                pilaEstructuras.push("PARA");
+            } 
+            else if (linea.startsWith("Mientras")) {
+                pilaEstructuras.push("MIENTRAS");
+            } 
+            else if (linea.startsWith("fSi")) {
+                if (pilaEstructuras.isEmpty() || !"SI".equals(pilaEstructuras.pop())) 
                     return false;
-                }
-                // NO pop aquí; 'fSi' lo hará
-
-            } else if (clave.equalsIgnoreCase("fSi")) {
-                if (pila.isEmpty() || !"SI".equals(pila.pop())) {
+            } 
+            else if (linea.startsWith("fPara")) {
+                if (pilaEstructuras.isEmpty() || !"PARA".equals(pilaEstructuras.pop())) 
                     return false;
-                }
-
-            } else if (clave.equalsIgnoreCase("fPara")) {
-                if (pila.isEmpty() || !"PARA".equals(pila.pop())) {
+            } 
+            else if (linea.startsWith("fMientras")) {
+                if (pilaEstructuras.isEmpty() || !"MIENTRAS".equals(pilaEstructuras.pop())) 
                     return false;
-                }
-
-            } else if (clave.equalsIgnoreCase("fMientras")) {
-                if (pila.isEmpty() || !"MIENTRAS".equals(pila.pop())) {
-                    return false;
-                }
-
-            } else {
-                // Asignación u otra línea
-                if (!PATRON_ASIGNACION.matcher(linea).matches()) {
-                    return false;
-                }
+            }
+            // Validar asignaciones
+            else if (!linea.isEmpty() && !PATRON_ASIGNACION.matcher(linea).matches()) {
+                return false;
             }
         }
-        return pila.isEmpty();
+        return pilaEstructuras.isEmpty();
     }
 
-    
     private void extraerEstructuras() {
         String[] lineas = contenido.split("\\r?\\n");
         Stack<EstructuraControl> pila = new Stack<>();

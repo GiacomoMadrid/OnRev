@@ -12,4 +12,6 @@ public abstract class Complejidad {
 
     public static final Complejidad CTE = new ComplejidadConstante(1);
     public static final Complejidad N = new ComplejidadVariable();
+    public static final Complejidad LOG_N = new ComplejidadLogaritmica();
+    public static final Complejidad N_LOG_N = new ComplejidadNLogN();
 }

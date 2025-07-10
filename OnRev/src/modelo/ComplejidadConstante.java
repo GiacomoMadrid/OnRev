@@ -13,7 +13,7 @@ public class ComplejidadConstante extends Complejidad {
     
     @Override 
     public Complejidad sumar(Complejidad otra) { 
-        return otra; 
+        return otra.maximo(this); 
     }
     @Override 
     public Complejidad multiplicar(Complejidad otra) { 
@@ -22,7 +22,7 @@ public class ComplejidadConstante extends Complejidad {
     
     @Override 
     public Complejidad maximo(Complejidad otra) { 
-        return otra; 
+        return otra instanceof ComplejidadConstante ? this : otra; 
     }
     
     @Override 
