@@ -31,8 +31,9 @@ public class EstructuraControl {
     );
     
     private static final Pattern PATRON_SINO = Pattern.compile(
-        "Sino"
+        "^\\s*Sino\\s*(//.*)?$"
     );
+
 
     public EstructuraControl(String linea, int nivel) {
         this.nivelAnidamiento = nivel;
@@ -53,6 +54,9 @@ public class EstructuraControl {
             return "SI";
         }
         
+        if (linea.trim().startsWith("Sino")) {
+            return "SINO";
+        }
         return "OTRO";
     }
 
@@ -85,6 +89,13 @@ public class EstructuraControl {
                 
             case "SI":
                 matcher = PATRON_SI.matcher(linea);
+                if (matcher.find()) {
+                    this.condicion = matcher.group(1);
+                }
+                break;
+                
+            case "SINO":
+                matcher = PATRON_SINO.matcher(linea);
                 if (matcher.find()) {
                     this.condicion = matcher.group(1);
                 }
