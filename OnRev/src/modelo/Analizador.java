@@ -4,6 +4,7 @@
  */
 package modelo;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -30,58 +31,51 @@ public class Analizador {
 
     //************************** Métodos **************************************
     
-    public String calcularComplejidad() {
-        complejidadAsintotica = "";
-        if (!pseudo.esValido()) {
-            return "Pseudocódigo inválido";
-        }
-        
-        List<EstructuraControl> estructuras = pseudo.getEstructuras();
-        int maxAnidamiento = 0;
-        int indiceN = 0;
-        String variablePrincipal = "n";
-        boolean tieneBucles = false;
-
-        // Calcular máxima profundidad de anidamiento
+        private Complejidad analizarBloque(List<EstructuraControl> estructuras, int nivel) {
+        Complejidad total = Complejidad.CTE;
         for (EstructuraControl ec : estructuras) {
-            if (ec.getNivelAnidamiento() > maxAnidamiento) {
-                maxAnidamiento = ec.getNivelAnidamiento();
-                System.out.println("ec Anidamiento: " + ec.getNivelAnidamiento());
-                System.out.println("Max anidamiento: " + maxAnidamiento);
+            if (ec.getNivelAnidamiento() != nivel) continue;
+            Complejidad cuerpo = Complejidad.CTE;
+            // obtener subestructuras anidadas
+            List<EstructuraControl> sub = new ArrayList<>();
+            for (EstructuraControl subEc : estructuras) {
+                if (subEc.getNivelAnidamiento() == nivel+1) sub.add(subEc);
             }
-            
-            if ("PARA".equals(ec.getTipo()) || "MIENTRAS".equals(ec.getTipo())) {
-                tieneBucles = true;
-                
-                if(ec.getNivelAnidamiento() == 0){ //Las erstructuras Para y Mientras son O(n)
-                    indiceN++;
-                
-                }
-            }            
-            
-            
+            // complejidad de cuerpo interno
+            if (!sub.isEmpty()) {
+                cuerpo = analizarBloque(estructuras, nivel+1);
+            }
+            switch (ec.getTipo()) {
+                case "PARA":
+                    // O(n) * cuerpo
+                    cuerpo = Complejidad.N.multiplicar(cuerpo);
+                    break;
+                case "MIENTRAS":
+                    // asumir O(n)
+                    cuerpo = Complejidad.N.multiplicar(cuerpo);
+                    break;
+                case "SI":
+                    // rama entonces y opcional Sino
+                    // aquí asumimos costo constante + max(ramas)
+                    cuerpo = cuerpo; // ya cuerpo interno max
+                    break;
+                default:
+                    cuerpo = Complejidad.CTE;
+            }
+            // sumar asignaciones u operaciones en línea: constante
+            total = total.sumar(cuerpo);
         }
+        return total;
+    }
 
-        // Determinar complejidad
-        if (!tieneBucles) {
-            complejidadAsintotica = "O(1)";
-            
-        } else if (maxAnidamiento <= 1 && indiceN == 0) {
-            complejidadAsintotica = "O(" + variablePrincipal + ")"; // O(n)
-            
-        } else if ((maxAnidamiento >= 1 || indiceN >= 1)){ // O(n^2); O(n^3)...        
-            complejidadAsintotica = "O(" + variablePrincipal + "^" + (maxAnidamiento+indiceN) +")";
-            
-            if((maxAnidamiento + indiceN) == 1){
-                complejidadAsintotica = "O(" + variablePrincipal + ")"; // O(n)
-            }                    
+    
+    public String calcularComplejidad() {
+        if (!pseudo.esValido()) {
+            throw new IllegalStateException("Pseudocódigo inválido");
         }
-        
-        System.out.println("Indice: "+ indiceN);
-        System.out.println("--------------------------------");
-        indiceN = 0;
-        return complejidadAsintotica;
-        
+        List<EstructuraControl> estructuras = pseudo.getEstructuras();
+        Complejidad expr = analizarBloque(estructuras, 0);
+        return expr.toBigO();
     }
 
     public String generarFuncionTiempo() {

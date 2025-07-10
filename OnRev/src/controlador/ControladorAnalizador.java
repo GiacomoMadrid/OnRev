@@ -88,7 +88,7 @@ public class ControladorAnalizador {
         this.vista.lblTiempo.setText(" ");
     }
     
-     private void analizarPseudocodigo() {
+    private void analizarPseudocodigo() {
         String codigo = vista.txtPseudocodigo.getText();
         pseudo = new Pseudocodigo(codigo);
         

@@ -35,7 +35,7 @@ public class EstructuraControl {
     );
     
     private static final Pattern PATRON_SINO = Pattern.compile(
-        "Sino"
+        "Sino\\s*"
     );
 
     public EstructuraControl(String linea, int nivel) {
