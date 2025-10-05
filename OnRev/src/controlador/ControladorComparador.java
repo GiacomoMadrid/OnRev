@@ -68,15 +68,13 @@ public class ControladorComparador {
             @Override
             public void actionPerformed(ActionEvent e){
                 analizarPseudocodigo();
-                try{
-                Polinomio p = parsePolinomio("2n^2−2n"); 
+                Graficador graf = new Graficador();
+                graf.setEscala(15);
+                graf.dibujarM(vista.panGraficaComplejidad);
+                graf.dibujarP(vista.panGraficaTiempo);
                 vista.lblComplejidad.setText("O(n)");
                 vista.lblTiempo.setText("2n^2-2n");
-                Graficador graficador = new Graficador();
-                graficador.setEscala(15); // Ajustar zoom
-                graficador.dibujar(vista.panGraficaTiempo, p);
-                }catch(Exception ex){
-                }
+                    
             }
         });
     }

@@ -43,8 +43,6 @@ public class Analizador {
         for (EstructuraControl ec : estructuras) {
             if (ec.getNivelAnidamiento() > maxAnidamiento) {
                 maxAnidamiento = ec.getNivelAnidamiento();
-                System.out.println("ec Anidamiento: " + ec.getNivelAnidamiento());
-                System.out.println("Max anidamiento: " + maxAnidamiento);
             }
             
             if ("PARA".equals(ec.getTipo()) || "MIENTRAS".equals(ec.getTipo())) {
@@ -57,7 +55,6 @@ public class Analizador {
             }     
             
             if("SINO".equals(ec.getTipo())){
-                System.out.println("Sino detected");
                 contSino++;
             }
                         
